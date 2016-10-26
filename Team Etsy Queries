@@ -1,0 +1,68 @@
+# TeamEtsy-Repository
+Team repository for MIS 3545
+
+/*Queries*/
+
+USE EtsyDatabase
+/*Multiple SELECT * queries to display all the records from each table. (Suppose the database has 4 tables, you should create 4 queries for this requirement.*/
+SELECT *
+FROM OrderDetail
+
+
+SELECT *
+FROM Orders
+
+
+SELECT *
+FROM Customers
+
+
+SELECT *
+FROM CustomerInfo
+
+
+SELECT *
+FROM Products
+
+
+SELECT *
+FROM Category
+
+
+SELECT *
+FROM Subcategory
+
+
+SELECT *
+FROM Suppliers
+
+/*A query that uses aggregate function.*/
+SELECT SUM(OrderTotal), ShipDate
+FROM Orders
+GROUP BY ShipDate
+HAVING SUM(OrderTotal)>50;
+
+/*A query that selects records from two (or multiple) tables using INNER JOIN.*/
+SELECT SupplierName, ProductID, ProductName
+FROM Suppliers
+JOIN Products
+ON Suppliers.SupplierID = Products.SupplierID
+ORDER BY SupplierName;
+
+/*A query that selects records from two (or multiple) tables using LEFT OUTER JOIN (or RIGHT OUTER JOIN or FULL OUTER JOIN). Specify why outer join is neccesary in comment block. Make sure your fake data could reflect the necessary. If it could not, you need to go back to part 2 to redo the data insertion, or you can use INSERT INTO, UPDATE or DELETE statements to modify the existing data.*/
+
+SELECT CustFirstName, CustLastName, OrderTotal, ShipDate
+FROM Customers
+LEFT JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID
+ORDER BY CustFirstName;
+
+
+/*A query that uses subquery.*/
+
+SELECT ProductName
+FROM Products
+WHERE ProductID IN (SELECT ProductID
+				FROM OrderDetail
+					WHERE Quantity > 5);
+
